@@ -1,0 +1,95 @@
+html {
+  background: #151922;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+header {
+  background-color: #262626;
+}
+
+.icon-header {
+  margin: auto;
+  height: 80px;
+  width: 450px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.icon-header-responsive {
+  margin: auto;
+  height: 50px;
+  width: 70px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.pageForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #151922;
+}
+
+.form {
+  background: #151922;
+  color: white;
+  padding: 30px 50px;
+  width: 100%;
+}
+
+.form .lien {
+  border: solid 2px #2a3148;
+  margin-left: 20px;
+  letter-spacing: 0.5px;
+  border-radius: 3px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.form .lien:hover {
+  color: #007bff;
+}
+
+.form .lien:active {
+  color: white;
+}
+
+.img-background {
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .icon-header {
+    display: none;
+  }
+  .img-background {
+    display: none;
+  }
+  .icon-header-responsive {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 1225px) {
+  .background {
+    width: 0%;
+    display: none;
+  }
+  .form {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .icon-header-responsive {
+    display: none;
+  }
+}
+/*# sourceMappingURL=main.css.map */

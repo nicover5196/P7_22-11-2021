@@ -1,0 +1,80 @@
+// Paramètre général
+
+html{
+    background: #151922;
+}
+body{
+    margin:0px;
+    padding:0px;
+}
+
+// En-tête
+
+header{
+    background-color:#262626;;
+}
+.icon-header{
+    margin:auto;
+    height:80px;
+    width: 450px;
+    object-fit: cover;
+  }
+  .icon-header-responsive{
+    margin:auto;
+    height:50px;
+    width: 70px;
+    object-fit: cover;
+  }
+
+// Main Page Connexion & Register
+// Page général 
+
+.pageForm{
+    display:flex;
+    background: #151922;
+}
+// Formulaire left
+
+.form{
+    background: #151922;
+    color:white;
+    padding: 30px 50px;
+    width:100%;
+    .lien{
+        border: solid 2px #2a3148;
+        margin-left:20px;
+        letter-spacing: 0.5px;
+        border-radius: 3px;
+        color: #fff;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+    .lien:hover{
+        color:#007bff;
+    }
+    .lien:active{
+        color:white;
+    }
+}
+
+
+// Background right
+
+.img-background{
+    width:100%;
+}
+
+// Gestion Logo taille d'écran
+
+@media screen and (max-width: 800px) {
+    .icon-header{display:none;}
+    .img-background{display:none;}
+    .icon-header-responsive{display:flex;}
+}
+@media screen and (max-width: 1225px){
+    .background{width:0%;display:none;}
+    .form{width:100%;}
+}
+@media screen and (min-width: 800px) {
+    .icon-header-responsive{display:none;}
+}
