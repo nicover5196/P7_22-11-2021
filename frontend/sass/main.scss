@@ -3,21 +3,23 @@
 html{
     background: #151922;
 }
+header{
+    background-color:#262626;;
+}
 body{
     margin:0px;
     padding:0px;
 }
 
+// Importation du fichier mixin
+
+@import "mixin";
+
+//Page Register & Connexion
 // En-tête
 
-header{
-    background-color:#262626;;
-}
 .icon-header{
-    margin:auto;
-    height:80px;
-    width: 450px;
-    object-fit: cover;
+    @include img-dimension;
   }
   .icon-header-responsive{
     margin:auto;
@@ -35,19 +37,14 @@ header{
 }
 // Formulaire left
 
-.form{
+.form-lien{
     background: #151922;
     color:white;
     padding: 30px 50px;
     width:100%;
     .lien{
-        border: solid 2px #2a3148;
         margin-left:20px;
-        letter-spacing: 0.5px;
-        border-radius: 3px;
-        color: #fff;
-        text-transform: uppercase;
-        text-decoration: none;
+        @include button-général;
     }
     .lien:hover{
         color:#007bff;
@@ -56,7 +53,9 @@ header{
         color:white;
     }
 }
-
+form{
+    margin-top:20px;
+}
 
 // Background right
 
@@ -78,3 +77,84 @@ header{
 @media screen and (min-width: 800px) {
     .icon-header-responsive{display:none;}
 }
+
+// Page Index
+
+header{
+    img{
+        @include img-dimension;
+    }
+    .navigation-index{
+        display:flex;
+        align-items: center;
+        width: 100%;
+        justify-content: flex-end;
+        .lien-index{
+            @include button-général;
+            display:flex;
+            align-items: center;
+            padding:5px;
+        }
+        .lien-index:hover{
+            color:#007bff;
+        }
+        .lien-index:active{
+            color:white;
+        }
+    }
+}
+main{
+    background:#151922;
+    padding:40px;
+}
+.CreatePublication{
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin:20px;
+    input{
+        padding:50px;
+        width:850px;
+    }
+    .button-CreatePublication{
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin:20px;
+    }
+}
+.container{
+        border-radius: 3px;
+        background:#fff;
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding:20px;
+    .affichagePublication{
+            display:flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            .publication{
+                display:flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin:10px;
+            }
+            .commentaire{
+                width:100%;
+                p{
+                    width: 100%;
+                }
+            }
+        }
+        img{
+            border-radius: 3px;;
+            width:100%;
+            height:100%;
+            object-fit: cover;
+        }
+    }
