@@ -96,11 +96,15 @@ form {
   }
 }
 
-header img {
+header .logo_index {
   height: 80px;
   width: 450px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+header .icon-responsive {
+  width: 250px;
 }
 
 header .navigation-index {
@@ -160,11 +164,12 @@ main {
       -ms-flex-align: center;
           align-items: center;
   margin: 20px;
+  width: 100%;
 }
 
 .CreatePublication input {
   padding: 50px;
-  width: 850px;
+  width: 100%;
 }
 
 .CreatePublication .button-CreatePublication {
@@ -244,5 +249,53 @@ main {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+@media screen and (min-width: 1225px) {
+  .icon-responsive {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1225px) {
+  header .navigation-index {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  header .logo_index {
+    display: none;
+  }
+  .CreatePublication .button-CreatePublication {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .CreatePublication .button-CreatePublication .btn-primary {
+    margin: 10px;
+  }
+}
+
+.container-user {
+  border-radius: 3px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+}
+
+.container-user .carte {
+  margin: 20px;
 }
 /*# sourceMappingURL=main.css.map */

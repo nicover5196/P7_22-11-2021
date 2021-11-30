@@ -81,8 +81,11 @@ form{
 // Page Index
 
 header{
-    img{
+    .logo_index{
         @include img-dimension;
+    }
+    .icon-responsive{
+        width:250px;
     }
     .navigation-index{
         display:flex;
@@ -113,9 +116,10 @@ main{
         flex-direction: column;
         align-items: center;
         margin:20px;
+        width:100%;
     input{
         padding:50px;
-        width:850px;
+        width:100%;
     }
     .button-CreatePublication{
         display: flex;
@@ -158,3 +162,39 @@ main{
             object-fit: cover;
         }
     }
+// Gestion Logo taille d'écran & adaption textuel
+@media screen and (min-width: 1225px) {
+    .icon-responsive{display:none;}
+}
+@media screen and (max-width: 1225px){
+    header{
+        .navigation-index{
+            flex-direction: column;
+        }
+        .logo_index{
+            display:none;
+        }
+    }
+    .CreatePublication{
+        .button-CreatePublication{
+            flex-direction: column;
+            .btn-primary{
+                margin:10px;
+            }
+        }
+    }
+}
+// Page profil
+
+.container-user{
+    border-radius: 3px;
+        background:#fff;
+        display:flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        padding:20px;
+        .carte{
+            margin:20px;
+        }
+}
