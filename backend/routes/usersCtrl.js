@@ -7,7 +7,7 @@ var asyncLib = require('async');
 
 // Constante 
 
-const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/;
+const PASSWORD_REGEX  = /^(?=.*\d).{4,8}$/;
 
 // Routes
 module.exports = {
