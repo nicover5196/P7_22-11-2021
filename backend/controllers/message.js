@@ -1,15 +1,18 @@
 // Importation du model 
 const Message = require('../models/message');
-
+const db = require('../models');
 // Récupération du module 'file system' de Node permettant de gérer ici les téléchargements et modifications d'images
 const fs = require('fs');
+const message = require('../models/message');
+
 
 // Récuperer touts les messages
 exports.getAllMessages = (req, res, next) => {
-    // On utilise la méthode find pour obtenir la liste complète des messages trouvées dans la base, l'array de toutes les sauves de la base de données
-    Message.find()
+    // On utilise la méthode find pour obtenir la liste complète des messages trouvées dans la base, l'array de tout les messages de la base de données
+    db.message.findAll()
       // Si OK on retourne un tableau de toutes les données
-      .then(messages => res.status(200).json(messages))
+      .then(
+          messages => res.status(200).json(messages))
       // Si erreur on retourne un message d'erreur
       .catch(error => res.status(400).json({
         error
@@ -34,7 +37,7 @@ exports.getOneMessage = (req, res, next) => {
 exports.createMessage = (req, res, next) => {
   // On stocke les données envoyées par le front-end sous forme de form-data dans une variable en les transformant en objet js
   const messageObject = JSON.parse(req.body.message);
-  // On supprime l'id généré automatiquement et envoyé par le front-end. L'id de la message est créé par la base MongoDB lors de la création dans la base
+  // On supprime l'id généré automatiquement et envoyé par le front-end. L'id de la message est créé par la base lors de la création dans la base
   delete messageObject._id;
   // Création d'une instance du modèle message
   const message = new Message({

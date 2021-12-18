@@ -15,15 +15,15 @@ const fs = require('fs');
 // Différentes routes de l'api
 console.log('routerMessage');
 // Route qui permet de récupérer tout les messages
-router.get('/', auth, messageController.getAllMessages);
+router.get('/',  messageController.getAllMessages);
 // Route qui permet de récupérer un message par ID
-router.get('/:id', auth, messageController.getOneMessage);
+router.get('/:id',  messageController.getOneMessage);
 // Route qui permet de créer un message
-router.post('/', auth, multer, messageController.createMessage);
+router.post('/', multer, messageController.createMessage);
 // Route qui permet de modifié un message par ID
-router.put('/:id', auth, multer, messageController.modifyMessage);
+router.put('/:id', multer, messageController.modifyMessage);
 // Route qui permet de supprimé un message par ID
-router.delete('/:id', auth, messageController.deleteMessage );
+router.delete('/:id', auth,  messageController.deleteMessage );
 
 
 module.exports = router;

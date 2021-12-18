@@ -1,0 +1,13 @@
+@mixin img-dimension{
+    height:80px;
+    width: 450px;
+    object-fit: cover;
+}
+@mixin button-général{
+    border: solid 2px #2a3148;
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+}
