@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -34,49 +34,8 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.message = require ("./message.js")(sequelize, Sequelize);
-module.exports = db;
-
-
+/*db.users = require("./user")(sequelize, Sequelize.DataTypes);
+db.posts = require("./post")(sequelize, Sequelize.DataTypes);
+db.comments = require("./comment") (sequelize, Sequelize.DataTypes);
 */
-
-const Sequelize = require("sequelize");
-require("dotenv").config();
-
-// Etablir la cnx avec la BD mysql
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
-  }
-);
-
-
-
-// pour tester la cnx
-sequelize
-  .authenticate()
-  .then(() => console.log("Connection has been established successfully."))
-  .catch((err) => console.error("Unable to connect to the database:", error));
-
-const db = {};
-
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
-db.message = require("./message.js")(sequelize, Sequelize);
-db.user = require("./user.js")(sequelize, Sequelize);
-
-db.sequelize.sync();
-
-/*
-
-db.sequelize.sync({force: true}).then(() =>{
-  console.log('yeah')
-})
-*/
-
 module.exports = db;
