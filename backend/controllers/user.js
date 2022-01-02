@@ -22,6 +22,7 @@ exports.signup = (req, res, next) => {
     var isAdmin = req.body.isAdmin
 
     // Permet de vérifier que tous les champs sont complétés
+  
     if(email == null || email == '' || username == null || username == ''|| password == null || password == '') {
         return res.status(400).json({ error: 'Tous les champs doivent être renseignés' });
     } 
@@ -50,14 +51,14 @@ exports.signup = (req, res, next) => {
         }
     })
     .then(userExist => {
-        if(!userExist) {
+            if(!userExist) {
             bcrypt.hash(req.body.password, 10)
             .then(hash => {
                 const user = db.User.build({
                     username: req.body.username,
                     email: req.body.email,
                     password: hash,
-                    isAdmin: req.body.isAdmin || 0
+                    isAdmin: req.body.isAdmin || 0 || false
                 });
                 user.save()
                     .then(() => res.status(201).json({ message: 'Votre compte a bien été créé !' }))
