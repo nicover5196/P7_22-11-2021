@@ -10,8 +10,8 @@ const db = require('../models/index');
 const Op = db.Sequelize.Op;
 
 // Regex de validation
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*]).{8,20}/;
+const emailRegex = /^[a-zA-Z0-9.!#$%&’+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*.]).{8,20}/;
 
 
 // Permet de créer un nouvel utilisateur
@@ -21,7 +21,7 @@ exports.signup = (req, res, next) => {
     var password = req.body.password;
     var isAdmin = req.body.isAdmin
 
-    // Permet de vérifier que tous les champs sont complétés
+    // // Permet de vérifier que tous les champs sont complétés
   
     if(email == null || email == '' || username == null || username == ''|| password == null || password == '') {
         return res.status(400).json({ error: 'Tous les champs doivent être renseignés' });
@@ -32,12 +32,12 @@ exports.signup = (req, res, next) => {
         return res.status(400).json({ error: 'Le pseudo doit contenir 3 à 15 caractères' });
     }
 
-    // Permet de contrôler la validité de l'adresse mail
+    // // Permet de contrôler la validité de l'adresse mail
     if(!emailRegex.test(email)) {
         return res.status(400).json({ error: 'Adresse mail invalide' });
     }
 
-    // Permet de contrôler la validité du mot de passe
+    // // Permet de contrôler la validité du mot de passe
     if(!passwordRegex.test(password)) {
         return res.status(400).json({ error: 'Le mot de passe doit contenir entre 8 et 20 caractères dont au moins une lettre majuscule, une lettre minusucle, un chiffre et un symbole' });
     }
@@ -192,4 +192,29 @@ exports.deleteAccount = (req, res, next) => {
         .catch(error => res.status(401).json({ error }));          
     })})
     .catch(error => res.status(500).json({ error }));
+}
+
+// Permet d'afficher tous les utilisateurs
+exports.getAllUser = (req, res, next) => {
+    db.user.findAll({
+        order: [['createdAt', "DESC"]] ,
+        include: [{
+            model: db.User,
+            attributes: ['username']
+        },{
+            model: db.User
+        }]
+        
+    })
+    .then(userFound => { 
+        
+        if(userFound) {
+            res.status(200).json(userFound);
+        } else {
+            res.status(404).json({ error: 'Aucun utilisateur trouvé' });
+        }
+    })
+    .catch(error => {  
+        res.status(500).send({ error: '⚠ Oops, une erreur s\'est produite ! fr' });
+    });
 }

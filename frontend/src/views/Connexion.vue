@@ -46,16 +46,16 @@ login(){
         localStorage.setItem('token',response.data.token)
         localStorage.setItem("userId",  response.data.userId)
         localStorage.setItem("username",response.data.username)
+         localStorage.setItem("isAdmin",response.data.isAdmin)
          alert('Connexion réussi : Bonjour ' + this.username + ' !')
          router.push({ path : '/dashboard'});
       })
       .catch(error =>{
-        
         console.log(error)
          alert('Connexion refusée : Merci de vérifier vos champs de connexion')
       })
     }
-  },
+  }
 }
 
 </script>

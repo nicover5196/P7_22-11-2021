@@ -11,6 +11,11 @@ const routes = [
     component: Inscription
   },
   {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue')
+  },
+  {
     path: '/connexion',
     name: 'Connexion',
     component: () => import('../views/Connexion.vue')

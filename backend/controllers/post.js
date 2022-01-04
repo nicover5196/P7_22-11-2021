@@ -7,17 +7,18 @@ const fs = require('fs');
 // Permet de créer un nouveau message
 exports.createPost = (req, res, next) => {   
     const content = req.body.content;
+    const title = req.body.title;
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'JWT_SECRET_TOKEN');
     const userId = decodedToken.userId;
     
     // Permet de vérifier que tous les champs sont complétés
-    if (content == null || content == '') {
+    if (content == null || content == '' && title == null || title == '') {
         return res.status(400).json({ error: 'Tous les champs doivent être renseignés' });
     } 
 
     // Permet de contrôler la longueur du titre et du contenu du message
-    if (content.length <= 4) {
+    if (content.length <= 4 && title.length <= 4) {
         return res.status(400).json({ error: 'Le contenu du message doit contenir au moins 4 caractères' });
     }
     
@@ -27,12 +28,15 @@ exports.createPost = (req, res, next) => {
     
     .then(userFound => {
         if(userFound) {
+
+          
             const post = db.Post.build({
+                title:req.body.title,
                 content: req.body.content,
                 imagePost: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.imagePost,
                 userId: userFound.id
             })
-            //console.log(post);
+           console.log(req.file);
             post.save()
             .then(() => res.status(201).json({ message: 'Votre message a bien été créé !' }))
             .catch(error => res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
@@ -74,9 +78,11 @@ exports.getAllPosts = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
     console.log('file', req.file);
     console.log('content', req.body.content);
+    console.log('title', req.body.title);
     console.log('bodypost', req.body.post);
     const postObject = req.file ?
     {
+    title: req.body.title,
     content: req.body.content,
     imagePost: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };

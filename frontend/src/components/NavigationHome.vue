@@ -3,8 +3,7 @@
         <nav>
             <ul>
                 <li><router-link to="/Dashboard">Accueil</router-link></li>
-                <li><router-link to="/">Inscription</router-link></li>
-                <li><router-link to="/Connexion">Connexion</router-link></li>
+                <li><router-link to="/Admin">Administrateur</router-link></li>
             </ul>
         </nav>
     </div>

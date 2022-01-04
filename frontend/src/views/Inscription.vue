@@ -21,6 +21,7 @@
 <script>
 import Navigation from "../components/Navigation";
 import axios from "axios";
+import router from "../router";
 export default {
   components: { Navigation, },
   name: 'Inscription',
@@ -42,12 +43,14 @@ export default {
        .then(response => {
         console.log(response)
         this.info = response.data.bpi
+        alert('Inscription réussi ! Redirection vers connexion')
+        router.push({ path : '/connexion'});
       })
       .catch(error => {
-        console.log(error + "je suis l'erreur")
+        console.log(error + 'Inscription échouée ! Vérifier vos champs d\'inscription')
       })
     }
-  },
+  }
 }
 </script>
 
