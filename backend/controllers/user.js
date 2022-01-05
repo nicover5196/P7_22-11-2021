@@ -195,26 +195,38 @@ exports.deleteAccount = (req, res, next) => {
 }
 
 // Permet d'afficher tous les utilisateurs
+// exports.getAllUser = (req, res, next) => {
+//     db.User.findAll({
+//         order: [['createdAt', "DESC"]] ,
+//         include: [{
+//             model: db.User,
+//             attributes: ['username']
+//         },{
+//             model: db.User
+//         }]
+        
+//     })
+//     .then(userFound => { 
+        
+//         if(userFound) {
+//             res.status(200).json(userFound);
+//         } else {
+//             res.status(404).json({ error: 'Aucun utilisateur trouvé' });
+//         }
+//     })
+//     .catch(error => {  
+//         res.status(500).send({ error: '⚠ Oops, une erreur s\'est produite ! fr' });
+//     });
+// }
 exports.getAllUser = (req, res, next) => {
-    db.user.findAll({
-        order: [['createdAt', "DESC"]] ,
-        include: [{
-            model: db.User,
-            attributes: ['username']
-        },{
-            model: db.User
-        }]
-        
-    })
-    .then(userFound => { 
-        
-        if(userFound) {
-            res.status(200).json(userFound);
+    // const id = req.params.id;
+    db.User.findAll()
+    .then(user => {
+        if(user) {
+            res.status(200).json(user);
         } else {
-            res.status(404).json({ error: 'Aucun utilisateur trouvé' });
+            res.status(404).json({ error: 'Utilisateur non trouvé' })
         }
     })
-    .catch(error => {  
-        res.status(500).send({ error: '⚠ Oops, une erreur s\'est produite ! fr' });
-    });
+    .catch(error => res.status(404).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
 }

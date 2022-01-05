@@ -9,7 +9,7 @@
                 <div class="articlePublication" v-for="post in posts" :key="post.id">
                     <h2>{{ post.title }}</h2>
                     <p>{{ post.content }}</p>
-                    <button v-if="post.userId == userId || isAdmin" class="btn btn-primary" @click.prevent="deletePost(post.id)" type="submit">Supprimer</button>
+                    <button v-if="post.userId === userId || isAdmin" class="btn btn-primary" @click.prevent="deletePost(post.id)" type="submit">Supprimer</button>
                     <div class="commentPublication" v-for="comment in comments" :key="comment.id">
                         <h5>{{ comment.userId}}</h5>
                         <p>{{ comment.content }}</p>
@@ -38,6 +38,7 @@ export default {
     content:'',
     comment:[],
     comments:'',
+    id:'',
     }
   },
   created(){
@@ -46,6 +47,7 @@ export default {
   createdComment(){
       this.getComment();
   },
+  
 methods:{
     //Récuperer mes publications
     getPost(){
@@ -54,7 +56,7 @@ methods:{
         .then(response => {
             // console.log(localStorage.getItem("token"))
             this.posts = response.data;
-            // console.log(response.data);
+            console.log(response.data);
         })
         .catch((error)=>{
             //   console.log(localStorage.getItem("token"));
@@ -79,12 +81,12 @@ methods:{
     // Créer un commentaire
     sendComment(id){
     const postId = id;
-    const formDataComment = new FormData()
-        formDataComment.append("postId", localStorage.getItem('postId'))
-        formDataComment.append("UserId", localStorage.getItem('userId'))
-        formDataComment.append("content", this.content.toString())
+    const formData = new FormData()
+        formData.append("postId", localStorage.getItem('postId'))
+        formData.append("UserId", this.userId.toString())
+        formData.append("content", this.content.toString())
     axios
-    .post('http://localhost:3000/api/comment/' + postId, formDataComment, { 
+    .post('http://localhost:3000/api/comment/' + postId, formData, { 
         headers: { "Authorization":"Bearer " + localStorage.getItem("token"),'Content-Type': 'application/json'}})
          .then((res) => {
             console.log(res)
@@ -93,13 +95,28 @@ methods:{
         })
         .catch((error)=>{
             console.log(this.content)
+            console.log(postId)
+            // console.log(UserId)
             alert(error + 'error comment')
+        })
+    },
+    //Récuperer mes commentaires
+    getComment(id){
+        const postId = id;
+        axios.get('http://localhost:3000/api/comment/' + postId,{headers: { "Authorization":"Bearer " + localStorage.getItem("token")}
+        })
+        .then(response => {
+            this.posts = response.data;
+        })
+        .catch((error)=>{
+            alert(error + "mon erreur")
+            console.log(postId)
         })
     },
     // Suppresion d'un commentaire
     deleteComment(id){
-        const commentId = id;
-        axios.delete('http://localhost:3000/api/comment/' + commentId, {headers:{"Authorization": "Bearer "+ localStorage.getItem("token")}
+        const postId = id;
+        axios.delete('http://localhost:3000/api/comment/' + postId, {headers:{"Authorization": "Bearer "+ localStorage.getItem("token")}
         })
         .then((res)=>{
             console.log(res)
