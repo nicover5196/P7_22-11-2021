@@ -97,12 +97,12 @@ exports.login = (req, res, next) => {
                     )
                 });
             })
-            .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite ! gggg' }));
+            .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
         } else {
             return res.status(404).json({ error: 'Cet utilisateur n\'existe pas, veuillez créer un compte' })
         }
     })
-    .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite ! hhhh' }));
+    .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
 }
 
 
@@ -160,35 +160,36 @@ exports.modifyUserProfile = (req, res, next) => {
 // Permet à un utilisateur de supprimer son compte
 exports.deleteAccount = (req, res, next) => {
     const id = req.params.id;
+    console.log("toto")
     db.User.findOne({
-        where: { id: id }
+        where: { id }
     })
     .then(user => {
         // On recupere les posts du user a delete, et on push les ids dans un tableau
         db.Post.findAll ({where: {userId: id}}) 
-        .then((result) => {
+        .then((result) => { 
             let postsId = [];
             for (let i = 0; i < result.length; i++) {
                 postsId.push(result[i].id)
             }
-            const filename = user.imageProfile.split('/images/')[1];
-                fs.unlink(`images/${filename}`, () => {
-           // On supprime les likes lié au user et aux posts du user
-            db.Like.destroy ({
-                where: {[Op.or]: [{ PostId: postsId }, {userId: id}]}
+            // const filename = user.imageProfile.split('/images/')[1];
+        //     fs.unlink(`images/${filename}`, () => {
+        //     // On supprime les likes lié au user et aux posts du user
+        // })
+        db.Like.destroy ({
+            where: {[Op.or]: [{ PostId: postsId }, {userId: id}]}
+        })
+        // On supprime les commentaires lié au user et aux posts du user
+        db.Comment.destroy({
+                where: { [Op.or]: [{ PostId: postsId }, {userId: id}] }
             })
-            // On supprime les commentaires lié au user et aux posts du user
-            db.Comment.destroy({
-                    where: { [Op.or]: [{ PostId: postsId }, {userId: id}] }
-                  })
-            // On supprime les posts du user      
-            db.Post.destroy({ where: { userId: id } })
-            // Et enfin on supprime le user
-            db.User.destroy({ where: { id: id } })
+        // On supprime les posts du user      
+        db.Post.destroy({ where: { userId: id } })
+        // Et enfin on supprime le user
+        db.User.destroy({ where: { id: id } })
             .then(() => {
                 res.status(200).json({ message: 'User deleted' })
-              })     
-        })  
+              })       
         .catch(error => res.status(401).json({ error }));          
     })})
     .catch(error => res.status(500).json({ error }));

@@ -7,13 +7,13 @@ const User = db.users;
 const Comment = db.comments;*/
 
 // Permet de créer un nouveau commentaire
-exports.createComment = (req, res, next) => {    
+exports.createComment = (req, res, next) => { 
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'JWT_SECRET_TOKEN');
     const userId = decodedToken.userId;
-    
+    console.log("label" + req.body)
     db.Post.findOne({
-        where: { id: req.params.postId }
+        where: { id: Number(req.params.postId) }
     })
     .then(postFound => {
         if(postFound) {
@@ -24,7 +24,10 @@ exports.createComment = (req, res, next) => {
             })
             comment.save()
                 .then(() => res.status(201).json({ message: 'Votre commentaire a bien été créé !' }))
-                .catch(error => res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
+                .catch(error => {
+                    console.log(error)     
+                    res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' })
+                });
         } else {
             return res.status(404).json({ error: 'Message non trouvé'})
         }
@@ -46,7 +49,7 @@ exports.getAllComments = (req, res, next) => {
     .then(commentFound => {
         if(commentFound) {
             res.status(200).json(commentFound);
-            console.log(commentFound);
+            // console.log(commentFound);
         } else {
             res.status(404).json({ error: 'Aucun commentaire trouvé' });
         }

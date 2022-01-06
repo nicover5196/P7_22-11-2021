@@ -5,16 +5,16 @@
             <form @submit.prevent="sendPost">
                 <div class="formCreatePublication">
                     <label for="title"></label>
-                    <input type="text" name="title" id="title" placeholder="Titre de Publication" v-model="title">
+                    <input class="form-control" type="text" name="title" id="title" placeholder="Titre de Publication" v-model="title">
                 </div>
                 <div class="formCreatePublication">
                     <label for="content"></label>
-                    <textarea rows="10" cols="50" name="content" placeholder="Votre message ..." v-model="content"></textarea>
+                    <textarea class="form-control" rows="10" cols="50" name="content" placeholder="Votre message ..." v-model="content"></textarea>
                 </div>
-                <!-- <div class="formCreatePublication">
+                <div class="formCreatePublication">
                     <label for="File">Ajouter une photo</label>
-                    <input @change="selectFile()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
-                </div> -->
+                    <input  @change="selectFile()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
+                </div>
                 <div class="formCreatePublication">
                     <button class="btn btn-primary" type="submit">Publier</button>
                 </div>
@@ -23,7 +23,8 @@
     </div>
 </template>
 <script>
-import router from "../router";
+// import router from "../router";
+// import fs from "fs"
 import axios from "axios"
 import NavigationHome from "../components/NavigationHome";
 export default {
@@ -33,11 +34,18 @@ export default {
         return{
             title:'',
             content:'',
+            file:null,
            } 
         },
         methods:{
+            selectFile() {
+            this.file = this.$refs.file.files[0];
+            this.newImage = URL.createObjectURL(this.file)
+            },
             sendPost(){
+                // const stream = fs.createReadStream(this.file)
                 const formData = new FormData()
+                formData.append("image", this.file)
                 formData.append("Username", localStorage.getItem('username'))
                 formData.append("UserId", localStorage.getItem('userId'))
                 formData.append("content", this.content.toString())
@@ -47,13 +55,15 @@ export default {
                 console.log(response)
                 this.content = response.data.bpi
                 this.title = response.data.bpi
+                this.file = null
                 alert('Votre publication à bien été créer')
-                router.push({ path : '/dashboard'});
+                // router.push({ path : '/dashboard'});
             })
             .catch(error =>{
                 console.log(error +' je suis erreur createPost')
                 alert('Merci de vous connecter')
-                router.push({ path : '/connexion'});
+                console.log(this.file)
+                // router.push({ path : '/connexion'});
             })
             },
         }
@@ -65,7 +75,14 @@ section{
     flex-direction: column;
     align-items: center;
 }
+
 .formCreatePublication{
     margin:10px;
+}
+@media only screen and (max-width: 500px){
+    textarea{
+        width:300px;
+    }
+
 }
 </style>

@@ -6,38 +6,27 @@
         </form>
         <main>
             <section class="Publication">
+                <h3>Publications : </h3>
                 <div class="articlePublication" v-for="post in posts" :key="post.id">
-                    <h2>{{ post.title }}</h2>
-                    <p>{{ post.content }}</p>
-                    <button v-if="post.userId === userId || isAdmin" class="btn btn-primary" @click.prevent="deletePost(post.id)" type="submit">Supprimer</button>
-                    <div class="commentPublication" v-for="comment in comments" :key="comment.id">
-                        <h5>{{ comment.userId}}</h5>
-                        <p>{{ comment.content }}</p>
-                    </div>
-                    <form @submit.prevent="sendComment(post.id)" class="AddComment" >
-                        <textarea v-model="content" id="CreateComment" type="text" placeholder="Votre commentaire ..."></textarea>
-                        <button  class="btn btn-primary" type="submit">Ajouter un commentaire</button>
-                    </form>
+                    <Publication v-bind:post="post"></Publication>
                 </div>  
             </section>
         </main>
     </div>
 </template>
 <script>
+import Publication from "../components/Publication";
 import axios from "axios"
 import NavigationHome from "../components/NavigationHome";
 export default {
     name:'dashboard',
-    components: { NavigationHome },
+    components: { NavigationHome, Publication }, 
     data(){
     return {
     userId: localStorage.getItem('userId'),
     isAdmin: localStorage.getItem('isAdmin'),
-    post: [],
-    posts: '',
+    posts: [],
     content:'',
-    comment:[],
-    comments:'',
     id:'',
     }
   },
@@ -63,68 +52,6 @@ methods:{
             alert(error + "mon erreur")
         })
     },
-    // Supression d'un post
-    deletePost(id){
-        const postId = id;
-        axios.delete('http://localhost:3000/api/post/' + postId, {headers:{"Authorization":"Bearer " + localStorage.getItem("token")}
-        })
-        .then((res)=>{
-            console.log(res)
-            alert("La publication a bien été supprimée")
-            location.reload();
-        })
-        .catch((error)=>{
-            console.log(id);
-            alert(error + "mon erreur delete post")
-        })
-    },
-    // Créer un commentaire
-    sendComment(id){
-    const postId = id;
-    const formData = new FormData()
-        formData.append("postId", localStorage.getItem('postId'))
-        formData.append("UserId", this.userId.toString())
-        formData.append("content", this.content.toString())
-    axios
-    .post('http://localhost:3000/api/comment/' + postId, formData, { 
-        headers: { "Authorization":"Bearer " + localStorage.getItem("token"),'Content-Type': 'application/json'}})
-         .then((res) => {
-            console.log(res)
-            this.content = res.data.bpi
-            alert('réussi!')
-        })
-        .catch((error)=>{
-            console.log(this.content)
-            console.log(postId)
-            // console.log(UserId)
-            alert(error + 'error comment')
-        })
-    },
-    //Récuperer mes commentaires
-    getComment(id){
-        const postId = id;
-        axios.get('http://localhost:3000/api/comment/' + postId,{headers: { "Authorization":"Bearer " + localStorage.getItem("token")}
-        })
-        .then(response => {
-            this.posts = response.data;
-        })
-        .catch((error)=>{
-            alert(error + "mon erreur")
-            console.log(postId)
-        })
-    },
-    // Suppresion d'un commentaire
-    deleteComment(id){
-        const postId = id;
-        axios.delete('http://localhost:3000/api/comment/' + postId, {headers:{"Authorization": "Bearer "+ localStorage.getItem("token")}
-        })
-        .then((res)=>{
-            console.log(res)
-        })
-        .catch((error)=>{
-            alert(error + "mon erreur")
-        })
-    }
 }
 }
 </script>
@@ -142,23 +69,7 @@ form{
 .btn{
     margin:10px;
 }
-.AddComment{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-}
-textarea{
-    height:50px;
-    width:300px;
-}
-section{
-    display: flex;
-    flex-direction: column;
-}
-h2{
-    text-align: center;
-}
 .articlePublication{
-    border:solid black 1px; 
+    padding:20px;
 }
 </style>
