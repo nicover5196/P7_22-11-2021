@@ -1,18 +1,20 @@
 <template>
-    <div>
+    <div class="Post">
         <div class="Publication">
+            <img class="image mb-3" :src="post.imagePost" />
             <h5>{{ post.title }}</h5>
             <p>{{ post.content }}</p>
-            <button v-if="post.userId == userId || isAdmin == 'true'" class="btn btn-primary" @click.prevent="deletePost(post.id)" type="submit">Supprimer ma publication</button>
+            <button v-if="post.userId == userId || isAdmin == 'true'" class="btn btn-danger m-0 mb-4" @click.prevent="deletePost(post.id)" type="submit">Supprimer ma publication</button>
         </div>
-        <h3>Commentaire : </h3>
+        <h3 class="mt-4 mb-5">Commentaire : </h3>
         <div class="commentPublication" v-for="comment in post.Comments" :key="comment.id">
             <h5>Utilisateur numéro {{ comment.userId}}</h5>
-            <p>{{ comment.content }}</p><button v-if="comment.userId == userId || isAdmin == 'true' " class="btn btn-primary" @click.prevent="deleteComment(comment.id)" type="submit">Supprimer Com</button>
+            <p>{{ comment.content }}</p>
+            <button v-if="comment.userId == userId || isAdmin == 'true' " class="btn btn-danger m-0" @click.prevent="deleteComment(comment.id)" type="submit">Supprimer Com</button>
         </div>
-        <form @submit.prevent="sendComment(post.id)" class="AddComment" >
+        <form @submit.prevent="sendComment(post.id)" class="AddComment mt-5" >
             <textarea class="form-control" v-model="content" id="CreateComment" type="text" placeholder="Votre commentaire ..."></textarea>
-            <button  class="btn btn-primary" type="submit">Ajouter un commentaire</button>
+            <button  class="btn btn-primary m-0 mt-2" type="submit">Ajouter un commentaire</button>
         </form>
     </div>
 </template>
@@ -86,27 +88,15 @@ methods:{
 }
 </script>
 <style scoped>
-main{
-    margin: 0 auto;
-    width:400px;
-    background-color:rgba(255, 255, 255, 0.5);
-    border-radius:5px;
-   }
-form{
-    display:flex;
-    justify-content:center;
-}
+
 .btn{
     margin:10px;
 }
-.AddComment{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-}
+
 textarea{
+    display:block;
     height:50px;
-    width:300px;
+    width:100%;
 }
 section{
     display: flex;
@@ -118,8 +108,20 @@ h2{
 .articlePublication{
     border:solid black 1px; 
 }
+.Post{
+    margin-bottom:20px;
+    background-color:rgba(255, 255, 255, 0.5);
+    padding:30px;
+    border-radius:10px;
+}
 .Publication{
     border-bottom:solid black 1px;
+}
+.image{
+    width:100%;
+    border-radius:10px;
+}
+.commentPublication{
     margin-bottom:20px;
 }
 </style>

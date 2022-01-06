@@ -6,7 +6,7 @@
         </form>
         <main>
             <section class="Publication">
-                <h3>Publications : </h3>
+                <h3>Mur de publications : </h3>
                 <div class="articlePublication" v-for="post in posts" :key="post.id">
                     <Publication v-bind:post="post"></Publication>
                 </div>  
@@ -58,9 +58,12 @@ methods:{
 <style scoped>
 main{
     margin: 0 auto;
-    width:400px;
-    background-color:rgba(255, 255, 255, 0.5);
+    width:600px;
+    max-width:100%;
     border-radius:5px;
+   }
+   h3{
+       padding:20px;
    }
 form{
     display:flex;

@@ -23,8 +23,7 @@
     </div>
 </template>
 <script>
-// import router from "../router";
-// import fs from "fs"
+import router from "../router";
 import axios from "axios"
 import NavigationHome from "../components/NavigationHome";
 export default {
@@ -43,7 +42,6 @@ export default {
             this.newImage = URL.createObjectURL(this.file)
             },
             sendPost(){
-                // const stream = fs.createReadStream(this.file)
                 const formData = new FormData()
                 formData.append("image", this.file)
                 formData.append("Username", localStorage.getItem('username'))
@@ -57,13 +55,13 @@ export default {
                 this.title = response.data.bpi
                 this.file = null
                 alert('Votre publication à bien été créer')
-                // router.push({ path : '/dashboard'});
+                router.push({ path : '/dashboard'});
             })
             .catch(error =>{
                 console.log(error +' je suis erreur createPost')
                 alert('Merci de vous connecter')
                 console.log(this.file)
-                // router.push({ path : '/connexion'});
+                router.push({ path : '/connexion'});
             })
             },
         }

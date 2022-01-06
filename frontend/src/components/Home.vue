@@ -24,7 +24,7 @@ export default {
     object-fit: cover;
     }
     body{
-    background:linear-gradient(#e66465, #9198e5);
+    background:linear-gradient(#9198e5,#e66465);
     margin: 0;
     min-height: 100vh;
     }
