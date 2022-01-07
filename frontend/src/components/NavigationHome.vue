@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: "NavigationHome"
+    name: "NavigationHome",
 }
 </script>
 <style>

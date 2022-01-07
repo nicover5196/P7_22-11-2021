@@ -3,6 +3,7 @@
         <NavigationHome></NavigationHome>
         <form>
             <router-link to="/CreatePublication"><button class="btn btn-primary" type="button">Créer une publication</button></router-link>
+            <button class="btn btn-danger" type="button" @click.prevent="disconnect()">Déconnexion</button>
         </form>
         <main>
             <section class="Publication">
@@ -15,6 +16,7 @@
     </div>
 </template>
 <script>
+import router from "../router";
 import Publication from "../components/Publication";
 import axios from "axios"
 import NavigationHome from "../components/NavigationHome";
@@ -36,7 +38,7 @@ export default {
   createdComment(){
       this.getComment();
   },
-  
+
 methods:{
     //Récuperer mes publications
     getPost(){
@@ -52,6 +54,11 @@ methods:{
             alert(error + "mon erreur")
         })
     },
+    disconnect(){
+            localStorage.clear();
+            alert('Déconnexion : Retour vers le formulaire de connexion')
+            router.push({ path : '/connexion'});
+        },
 }
 }
 </script>
