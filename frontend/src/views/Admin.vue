@@ -56,13 +56,14 @@ export default{
         .then((res)=>{
             console.log(res)
             console.log(isAdmin)
-            if(isAdmin){
+            if(isAdmin == 'true'){
                 alert("Suppresion du compte")
                 location.reload();
             }else if(userId == id);{
                 alert("Suppresion de votre compte")
                 console.clear()
-                router.push({ path : '/connexion'});
+                localStorage.clear();
+                router.push({ path : '/inscription'});
             }
         })
         .catch((error)=>{

@@ -7,7 +7,7 @@
         </form>
         <main>
             <section class="Publication">
-                <h3>Mur de publications : </h3>
+                <h3>Dernières publications : </h3>
                 <div class="articlePublication" v-for="post in posts" :key="post.id">
                     <Publication v-bind:post="post"></Publication>
                 </div>  
