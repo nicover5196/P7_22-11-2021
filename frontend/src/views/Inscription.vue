@@ -44,7 +44,7 @@ export default {
         console.log(response)
         this.info = response.data.bpi
         alert('Inscription réussi ! Redirection vers connexion')
-        router.push({ path : '/connexion'});
+        router.push({ path : '/Connexion'});
       })
       .catch(error => {
         console.log(error)

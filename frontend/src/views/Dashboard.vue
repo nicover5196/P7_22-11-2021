@@ -45,19 +45,17 @@ methods:{
         axios.get('http://localhost:3000/api/post/',{headers: { "Authorization":"Bearer " + localStorage.getItem("token")}
         })
         .then(response => {
-            // console.log(localStorage.getItem("token"))
             this.posts = response.data;
             console.log(response.data);
         })
         .catch((error)=>{
-            //   console.log(localStorage.getItem("token"));
             alert(error + "mon erreur")
         })
     },
     disconnect(){
             localStorage.clear();
             alert('Déconnexion : Retour vers le formulaire de connexion')
-            router.push({ path : '/connexion'});
+            router.push({ path : '/Connexion'});
         },
 }
 }

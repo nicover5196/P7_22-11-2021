@@ -7,7 +7,7 @@
                 <div class="User" v-for="user in users" :key="user.id">
                     <h4>Pseudo : {{ user.username}}</h4>
                     <p>Email : {{ user.email }}</p>
-                    <button v-if="isAdmin == 'true' || user.id == userId"  class="btn btn-primary" @click.prevent="deleteUser(user.id)" type="submit">Supprimer</button>
+                    <button v-if="isAdmin == 'true' || user.id == userId"  class="btn btn-danger" @click.prevent="deleteUser(user.id)" type="submit">Supprimer</button>
                 </div>
             </section>
         </main>
@@ -55,15 +55,14 @@ export default{
         })
         .then((res)=>{
             console.log(res)
-            console.log(isAdmin)
             if(isAdmin == 'true'){
                 alert("Suppresion du compte")
                 location.reload();
             }else if(userId == id);{
                 alert("Suppresion de votre compte")
                 console.clear()
-                localStorage.clear();
-                router.push({ path : '/inscription'});
+              //  localStorage.clear();
+                router.push({ path : '/'});
             }
         })
         .catch((error)=>{

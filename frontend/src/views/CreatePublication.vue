@@ -55,13 +55,12 @@ export default {
                 this.title = response.data.bpi
                 this.file = null
                 alert('Votre publication à bien été créer')
-                router.push({ path : '/dashboard'});
+                router.push({ path : '/Dashboard'});
             })
             .catch(error =>{
-                console.log(error +' je suis erreur createPost')
+                console.log(error)
                 alert('Merci de vous connecter')
-                console.log(this.file)
-                router.push({ path : '/connexion'});
+                router.push({ path : '/Connexion'});
             })
             },
         }

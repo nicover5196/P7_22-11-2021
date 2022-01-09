@@ -1,7 +1,7 @@
 <template>
     <div class="Post">
         <div class="Publication">
-            <span>Créer le {{post.createdAt}} par utilisateur numéro {{ post.userId}}</span>
+            <span>Créer le {{dateFormat(post.createdAt)}} par utilisateur numéro {{ post.userId}}</span>
             <img class="image mb-3" :src="post.imagePost" />
             <h5>{{ post.title }}</h5>
             <p>{{ post.content }}</p>
@@ -9,10 +9,10 @@
         </div>
         <h3 class="mt-4 mb-5">Commentaire : </h3>
         <div class="commentPublication" v-for="comment in post.Comments" :key="comment.id">
-            <span>Commentaire créer le {{comment.createdAt}}</span>
+            <span>Commentaire créer le {{dateFormat(comment.createdAt)}}</span>
             <h5>Utilisateur numéro {{ comment.userId}}</h5>
             <p>{{ comment.content }}</p>
-            <button v-if="comment.userId == userId || isAdmin == 'true' " class="btn btn-danger m-0" @click.prevent="deleteComment(comment.id)" type="submit">Supprimer Com</button>
+            <button v-if="comment.userId == userId || isAdmin == 'true' " class="btn btn-danger m-0" @click.prevent="deleteComment(comment.id)" type="submit">Supprimer mon commentaire</button>
         </div>
         <form @submit.prevent="sendComment(post.id)" class="AddComment mt-5" >
             <textarea class="form-control" v-model="content" id="CreateComment" type="text" placeholder="Votre commentaire ..."></textarea>
@@ -21,6 +21,7 @@
     </div>
 </template>
 <script>
+import moment from "moment"
 import axios from "axios"
 export default {
     name:'Publication',
@@ -38,7 +39,11 @@ export default {
   },
   
 methods:{
- 
+        dateFormat(date){
+                if (date) {
+                    return moment(String(date)).format('DD/MM/YYYY HH:mm')
+                }
+            },
     // Créer un commentaire
           sendComment(postId) {
                 axios.post('http://localhost:3000/api/comment/' + postId, {
