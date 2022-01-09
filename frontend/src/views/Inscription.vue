@@ -47,7 +47,8 @@ export default {
         router.push({ path : '/connexion'});
       })
       .catch(error => {
-        console.log(error + 'Inscription échouée ! Vérifier vos champs d\'inscription')
+        console.log(error)
+        alert('Inscription échouée ! Vérifier vos champs d\'inscription')
       })
     }
   }
