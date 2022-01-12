@@ -1,12 +1,12 @@
 # VeracxNicolas_7_22112021
 
-Project :
+<h1>Project :</h1>
 Projet 7 du parcours Web d'Openclassrooms Par Nicolas Veracx 
 
-Getting Started : 
+<h2>Getting Started :</h2>
 Les instructions pour lancer le projet sur votre ordinateur local
 
-Prerequisites :
+<h2>Prerequisites :</h2>
 Pour installer ce projet veuillez vous procurer :
 
 Node.js
@@ -14,13 +14,13 @@ MySQL
 Vue.js
 
 
-Installing :
+<h2>Installing :</h2>
 
-Clone the repos
-Run npm install
-Configure config/config.json
-Run sequelize db:create && sequelize db:migrate
-Import sauvegarde.sql
+Clone the repos</br>
+Run npm install</br>
+Configure config/config.json</br>
+Run sequelize db:create && sequelize db:migrate</br>
+Import sauvegarde.sql</br>
 
 Enjoy
 
