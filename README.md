@@ -20,7 +20,7 @@ Clone the repos</br>
 Run npm install</br>
 Configure config/config.json</br>
 Run sequelize db:create && sequelize db:migrate</br>
-Import sauvegarde.sql</br>
+Import development.sql</br>
 
 Enjoy
 
